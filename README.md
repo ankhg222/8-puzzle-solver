@@ -242,40 +242,40 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
 
         2.3.6 Nhận xét về hiệu suất của các thuật toán Local Search
         
-         Simple Hill Climbing
+            Simple Hill Climbing
 
                 Thuật toán đơn giản, mỗi bước chỉ chọn trạng thái hàng xóm tốt hơn.
                 Tuy nhiên, rất dễ bị kẹt ở cực trị cục bộ nếu xung quanh không có trạng thái nào tốt hơn.
                 Trong 8-Puzzle, có thể đứng im giữa chừng nếu chọn nhánh không hợp lý.
 
 
-         Steepest Ascent Hill Climbing
+            Steepest Ascent Hill Climbing
 
                 Cải tiến hơn Simple Hill Climbing ở chỗ xét tất cả hàng xóm và chọn trạng thái tốt nhất trong số đó.
                 Dễ tránh được một số điểm kẹt nhỏ, nhưng vẫn khó thoát khỏi cực trị toàn cục.
                 Trong các trạng thái khó, vẫn có thể dừng lại mà không đạt đích.
 
-        Random Restart Hill Climbing
+            Random Restart Hill Climbing
 
                 Giảm rủi ro kẹt cực trị bằng cách chạy nhiều lần Hill Climbing từ các trạng thái khởi đầu khác nhau.
                 Nếu một lần bị kẹt → khởi động lại → tăng xác suất tìm được lời giải tốt hơn.
                 Kết quả phụ thuộc vào số lần restart và chất lượng khởi tạo ban đầu.
                 Trong 8-Puzzle, hiệu quả hơn nhiều so với Simple/Steepest nếu cho phép chạy lặp lại.
 
-        Simulated Annealing
+            Simulated Annealing
 
                 Có khả năng vượt qua cực trị bằng cách chấp nhận trạng thái tệ hơn với một xác suất nhất định.
                 Xác suất này giảm dần theo thời gian (giống như quá trình tôi luyện kim loại – annealing).
                 Trong bài toán 8 ô chữ, đây là thuật toán ổn định và hiệu quả nhất trong nhóm Local Search, nếu điều chỉnh thông số nhiệt độ hợp lý.
 
-        Beam Search
+            Beam Search
 
                 Tối ưu bộ nhớ bằng cách chỉ giữ lại k trạng thái tốt nhất ở mỗi bước (beam width).
                 Nếu k quá nhỏ, thuật toán có thể bỏ sót lời giải.
                 Nếu k đủ lớn, có thể tìm được kết quả tốt nhanh hơn A*, nhưng không đảm bảo tối ưu.
 
-            
-        Simulated Annealing là thuật toán tốt nhất trong nhóm Local Search vì có khả năng thoát khỏi điểm kẹt và khám phá không gian trạng thái tốt hơn.
-        Random Restart cũng hiệu quả nếu có đủ số lần thử lại và trạng thái khởi tạo phân tán.
-        Simple và Steepest thích hợp cho bài toán đơn giản, nhưng kém hiệu quả ở các trạng thái phức tạp.
-        Beam Search hiệu quả với cấu hình phù hợp, nhưng yêu cầu phải chọn k hợp lý để cân bằng giữa tốc độ và độ chính xác.
+                
+            Simulated Annealing là thuật toán tốt nhất trong nhóm Local Search vì có khả năng thoát khỏi điểm kẹt và khám phá không gian trạng thái tốt hơn.
+            Random Restart cũng hiệu quả nếu có đủ số lần thử lại và trạng thái khởi tạo phân tán.
+            Simple và Steepest thích hợp cho bài toán đơn giản, nhưng kém hiệu quả ở các trạng thái phức tạp.
+            Beam Search hiệu quả với cấu hình phù hợp, nhưng yêu cầu phải chọn k hợp lý để cân bằng giữa tốc độ và độ chính xác.
