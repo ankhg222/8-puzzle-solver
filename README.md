@@ -1,3 +1,4 @@
+
 1. Mục tiêu
 
 
@@ -519,3 +520,17 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
                 Q-Learning là lựa chọn tối ưu nếu cần giải 8-Puzzle nhiều lần và có thời gian để huấn luyện từ trước.
                 Genetic Algorithm phù hợp nếu muốn tìm lời giải dưới dạng trạng thái đích (không phải đường đi), hoặc kết hợp với các phương pháp khác.
                 REINFORCE mạnh mẽ nhưng phức tạp hơn, phù hợp cho hệ thống có nhiều biến và yêu cầu chính sách mềm dẻo.
+
+
+
+3. Kết luận
+
+    Xây dựng thành công một hệ thống trực quan giải bài toán 8-Puzzle tích hợp hơn cáccác thuật toán tìm kiếm khác nhau.
+
+    Tái hiện rõ ràng cách thức hoạt động của mỗi thuật toán qua giao diện Pygame, bao gồm trạng thái chuyển động, thời gian giải và số node mở rộng.
+
+    So sánh hiệu suất các nhóm thuật toán qua thực nghiệm thực tế: A* và Simulated Annealing cho kết quả tối ưu trong nhóm heuristic và local search, trong khi BFS và IDA* đảm bảo độ đúng đắn cao.
+
+    Tích hợp thành công các phương pháp học tăng cường như Q-Learning và REINFORCE để giải bài toán 8-Puzzle dưới dạng học chính sách.
+
+    Tăng cường tư duy thuật toán, kỹ năng tối ưu hóa và kỹ thuật biểu diễn dữ liệu, đồng thời trình bày được thuật toán một cách khoa học và trực quan trong file báo cáo/README.
