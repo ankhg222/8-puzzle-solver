@@ -28,4 +28,5 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
 
             Solution: Là chuỗi bước ngắn nhất từ trạng thái ban đầu đến đích, được lưu dưới dạng danh sách các cặp (from_idx, to_idx).
 
-            ![Mô phỏng thuật toán BFS](gifs/BFS.gif)
+
+![Mô phỏng thuật toán BFS](gifs/BFS.gif)
