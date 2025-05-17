@@ -386,3 +386,59 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
         Sensorless Search có tính đảm bảo cao nhưng hiệu suất thấp do mất nhiều bước để thu hẹp belief.
         AND-OR Search phù hợp cho bài toán logic/phức tạp, nhưng quá nặng cho 8-Puzzle vì không gian trạng thái quá lớn.
         Searching with No Observation chỉ mang tính minh họa lý thuyết, hiệu quả thực tế rất thấp.
+
+
+
+    2.5. Thuật toán ràng buộc (Constraint-Based Search)
+
+
+        5.1 Backtracking Search
+
+            Trạng thái:  Mỗi ô của 8-Puzzle được coi là một biến. Miền giá trị là {0..8}.
+            Ràng buộc: Không có giá trị nào bị trùng lặp.
+            Chi phí: Mỗi bước gán hợp lệ tính là 1 đơn vị.
+
+            Solution:
+            Thuật toán lần lượt thử gán giá trị cho từng vị trí và kiểm tra tính hợp lệ tại mỗi bước.
+            Nếu xảy ra mâu thuẫn (vi phạm ràng buộc), thuật toán sẽ quay lui (backtrack) và thử nhánh khác.
+            Solution là chuỗi gán giá trị thỏa mãn điều kiện không trùng và tạo thành trạng thái đích.
+
+![](gifs/Backtracking.gif)
+
+
+        5.2 AC-3 Algorithm (Arc Consistency – Đảm bảo tính nhất quán cung)
+
+            Trạng thái: Mỗi ô của 8-Puzzle được coi là một biến. Miền giá trị là {0..8}.
+            Ràng buộc: Không có hai ô nào được gán cùng một giá trị.
+            Chi phí: Mỗi lần kiểm tra và loại bỏ giá trị vi phạm.
+
+            Solution:
+            Thuật toán lặp qua tất cả các cặp biến (xi, xj) và loại bỏ những giá trị trong xi khiến cho không thể tìm được giá trị phù hợp trong xj.
+            Khi không còn giá trị nào có thể loại bỏ, hệ thống được gọi là arc-consistent.
+            Nếu mỗi biến còn đúng 1 giá trị → đó là solution hợp lệ.
+            Nếu có biến nào rỗng miền giá trị → không có solution.
+
+
+![](gifs/AC_3.gif)
+   
+
+        2.5.3 Nhận xét về hiệu suất của các thuật toán ràng buộc (Constraint-Based)
+
+            Backtracking Search
+
+                Là giải pháp cơ bản cho bài toán ràng buộc.
+                Ưu điểm: đơn giản, dễ cài đặt, hiệu quả trong không gian nhỏ.
+                Nhược điểm: dễ bị lặp lại, thời gian tăng rất nhanh nếu không có cắt tỉa.
+                Trong 8-Puzzle, nếu không có heuristic hoặc thêm kỹ thuật nâng cao, thời gian giải lâu và khó mở rộng.
+
+            AC-3 Algorithm
+
+                AC-3 là kỹ thuật lọc ràng buộc rất mạnh, giúp giảm không gian tìm kiếm trước khi áp dụng giải thuật khác.
+                Ưu điểm: giúp hệ thống loại bỏ giá trị mâu thuẫn sớm, tránh phải thử sau này.
+                Nhược điểm: không tạo solution trực tiếp, chỉ là bước tiền xử lý hoặc kiểm tra tính hợp lệ.
+                Khi áp dụng vào 8-Puzzle, AC-3 hữu ích trong việc kiểm tra trạng thái có consistent hay không, nhưng không thể tự tìm ra đường đi đến goal.
+
+        
+        Backtracking là giải pháp toàn cục nhưng hiệu suất thấp nếu không có cắt tỉa.
+        AC-3 là bước hỗ trợ mạnh mẽ để đảm bảo ràng buộc trước khi giải bài toán, nhưng không phải là thuật toán tìm lời giải.
+        Trong 8-Puzzle, nhóm Constraint-Based Search không phù hợp để tìm đường đi, nhưng lại rất hiệu quả khi dùng để xác minh trạng thái hợp lệ hoặc kết hợp với thuật toán khác (như Backtracking + AC-3).
