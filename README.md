@@ -442,3 +442,80 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
         Backtracking là giải pháp toàn cục nhưng hiệu suất thấp nếu không có cắt tỉa.
         AC-3 là bước hỗ trợ mạnh mẽ để đảm bảo ràng buộc trước khi giải bài toán, nhưng không phải là thuật toán tìm lời giải.
         Trong 8-Puzzle, nhóm Constraint-Based Search không phù hợp để tìm đường đi, nhưng lại rất hiệu quả khi dùng để xác minh trạng thái hợp lệ hoặc kết hợp với thuật toán khác (như Backtracking + AC-3).
+
+
+    2.6. Thuật toán tiến hóa và học tăng cường (Evolutionary & Reinforcement Learning)
+
+        2.6.1 Genetic Algorithm
+
+            Trạng thái: Mỗi cá thể là một chuỗi hoán vị của các số từ 0 đến 8 (ứng với một trạng thái của 8-Puzzle).
+            Trạng thái ban đầu: Một quần thể cá thể được khởi tạo ngẫu nhiên.
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Lai ghép (crossover), đột biến (mutation), và chọn lọc (selection) dựa vào hàm fitness.
+            Chi phí: Tính theo số thế hệ cần để tìm được cá thể khớp trạng thái đích.
+
+            Solution:
+            Thuật toán mô phỏng quá trình tiến hóa tự nhiên.
+            Ở mỗi thế hệ, chọn các cá thể tốt nhất theo hàm fitness (Manhattan distance), sau đó lai ghép và đột biến để tạo thế hệ mới.
+            Quá trình này lặp lại đến khi tìm được cá thể chính xác hoặc đạt số vòng lặp giới hạn.
+            Solution là một trạng thái gần đích hoặc chính xác đích, không phải chuỗi di chuyển cụ thể.
+
+![](gifs/Genetic.gif)
+
+
+            2.6.2 Q-Learning (Reinforcement Learning)
+
+                Trạng thái: Mỗi trạng thái là một cấu hình của 8 ô.
+                Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+                Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+                Phép toán: Di chuyển 0 theo 4 hướng hợp lệ.
+                Chi phí: Thưởng +100 nếu đạt goal, -1 nếu không; cập nhật bảng Q.
+
+                Solution:
+                Thuật toán học chính sách hành động tối ưu qua việc tương tác với môi trường.
+                Sử dụng bảng Q để lưu trữ giá trị của từng hành động tại mỗi trạng thái.
+                Sau khi huấn luyện qua nhiều lần thử, agent có thể thực hiện giải bài toán bằng cách chọn hành động có Q-value cao nhất tại mỗi bước.
+                Solution là chuỗi hành động tốt nhất được học để đến đích từ trạng thái ban đầu.
+
+
+![](gifs/Q_Learning.gif)
+
+
+            2.6.3 REINFORCE (Policy Gradient)
+
+                Trạng thái: Tương tự Q-Learning – mỗi trạng thái là một cấu hình của 8 ô.
+                Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+                Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+                Phép toán: Di chuyển 0 theo 4 hướng hợp lệ.
+                Chi phí: Tính theo tổng phần thưởng nhận được trong mỗi episode.
+
+                Solution:
+                Thay vì dùng bảng Q, REINFORCE sử dụng chính sách xác suất (probabilistic policy) và cập nhật trực tiếp trọng số qua gradient.
+                Agent chọn hành động dựa trên xác suất (softmax), sau đó cập nhật chính sách để tăng khả năng chọn hành động mang lại phần thưởng cao.
+                Solution là chính sách dẫn đến chuỗi hành động tối ưu sau quá trình học.
+
+
+![](gifs/REINFORCE.gif)
+
+
+            2.6.4 Nhận xét về hiệu suất của các thuật toán tiến hóa và học tăng cường
+
+                Genetic Algorithm
+                    Thích hợp cho bài toán tìm trạng thái đích mà không cần biết rõ đường đi.
+                    Có thể tìm được trạng thái tối ưu sau nhiều thế hệ, nhưng không cung cấp trực tiếp chuỗi hành động giải bài toán.
+                    Phụ thuộc nhiều vào việc thiết kế hàm fitness và tham số như mutation rate, population size.
+
+                Q-Learning
+                    Cho phép agent học chính sách giải quyết bài toán thông qua tương tác.
+                    Sau khi huấn luyện đủ lâu, có thể giải nhanh và chính xác các trạng thái đã học.
+                    Tuy nhiên, cần nhiều thời gian huấn luyện và bộ nhớ nếu không gian trạng thái lớn.
+
+                REINFORCE
+                    Là mô hình học chính sách trực tiếp, không cần lưu bảng Q.
+                    Dễ tích hợp với mạng nơ-ron sâu trong các hệ thống phức tạp.
+                    Nhược điểm: biến thiên gradient lớn, cần kỹ thuật chuẩn hóa phần thưởng, dễ bị học chậm nếu thiết kế chưa tốt.
+
+
+                Q-Learning là lựa chọn tối ưu nếu cần giải 8-Puzzle nhiều lần và có thời gian để huấn luyện từ trước.
+                Genetic Algorithm phù hợp nếu muốn tìm lời giải dưới dạng trạng thái đích (không phải đường đi), hoặc kết hợp với các phương pháp khác.
+                REINFORCE mạnh mẽ nhưng phức tạp hơn, phù hợp cho hệ thống có nhiều biến và yêu cầu chính sách mềm dẻo.
