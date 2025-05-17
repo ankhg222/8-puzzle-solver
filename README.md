@@ -134,3 +134,30 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
             Solution được lưu như danh sách bước hợp lệ đến goal.
 
 ![](gifs/IDA.gif)
+
+
+        2.2.4 Nhận xét về hiệu suất của các thuật toán Tìm kiếm không có thông tin
+
+            Greedy Best-First Search
+
+                Ưu điểm lớn nhất là tốc độ nhanh và số node mở rộng ít.
+                Tuy nhiên, do chỉ quan tâm đến khoảng cách ước lượng đến đích (h(n)) mà không xét chi phí đã đi (g(n)), nên Greedy dễ bị đi vòng, dẫn đến lời giải không tối ưu hoặc bị kẹt trong cấu trúc mê cung của trạng thái.
+                Greedy hoạt động tốt nếu trạng thái đơn giản, nhưng thiếu ổn định ở các trạng thái khó.
+
+            A Search*
+
+                Là thuật toán nổi bật nhất trong nhóm vì kết hợp được cả chi phí thực tế (g(n)) và heuristic (h(n)) thông qua công thức f(n) = g(n) + h(n).
+                Trong bài toán 8-Puzzle, khi sử dụng heuristic Manhattan, A* luôn tìm được lời giải ngắn nhất nếu tồn tại và heuristic là admissible.
+                A* có thể mở rộng nhiều node hơn Greedy nhưng đổi lại độ chính xác và tối ưu là vượt trội.
+
+            IDA (Iterative Deepening A)**
+
+                IDA* giữ nguyên tính tối ưu của A* nhưng sử dụng chiến lược sâu dần (Iterative Deepening) để tiết kiệm bộ nhớ.
+                Tuy nhiên, nó phải lặp lại quá trình tìm kiếm nhiều lần, dẫn đến thời gian thực thi lâu hơn A*.
+                IDA* phù hợp khi bộ nhớ bị hạn chế hoặc khi cần đảm bảo độ tối ưu trong điều kiện bộ nhớ thấp.    
+
+            Trong nhóm Tìm kiếm có thông tin:
+
+                A* là lựa chọn tốt nhất nếu muốn tìm lời giải ngắn nhất, đảm bảo tối ưu, và chấp nhận mở rộng nhiều node hơn.
+                Greedy nhanh, phù hợp để chạy thời gian thực hoặc trong các trạng thái đơn giản, nhưng không đảm bảo tối ưu.
+                IDA* là phương án thay thế tốt cho A* khi muốn tiết kiệm bộ nhớ, dù đánh đổi bằng thời gian.
