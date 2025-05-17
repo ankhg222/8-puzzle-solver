@@ -35,7 +35,7 @@ title_font = pygame.font.SysFont(None, 36)
 # Hàm sinh trạng thái hợp lệ
 def generate_fixed_puzzle():
     """Trả về trạng thái 8-Puzzle cố định theo đề bài."""
-    #[1, 2, 3, 4, 5, 6, 0, 7, 8] 
+
     return  [2, 6, 5, 
             0, 8, 7,  # Ô trống là số 0
            4, 3, 1]

@@ -23,10 +23,9 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
 
         2.1.1 Breadth-First Search (BFS)
 
-
             Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
 
-            Trạng thái ban đầu: Cung cấp đầu vào.
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
 
             Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0].
 
@@ -40,9 +39,10 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
 ![](gifs/BFS.gif)
 
         2.1.2 Depth-First Search (DFS)
+
             Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
 
-            Trạng thái ban đầu: Cung cấp đầu vào.
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
 
             Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
 
@@ -58,3 +58,45 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
             Solution được lưu dưới dạng danh sách các bước (from_idx, to_idx) dẫn đến trạng thái đích.
 
 ![](gifs/DFS.gif)
+
+        2.1.3 Uniform Cost Search (UCS)
+
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+
+            Chi phí: Mỗi bước có chi phí bằng 1.
+
+            Solution: UCS sử dụng hàng đợi ưu tiên (priority queue) để 
+            chọn bước đi có tổng chi phí nhỏ nhất tính đến hiện tại.
+
+            Trong bài toán này, vì mọi bước đều có chi phí bằng nhau, UCS cho kết quả giống BFS nhưng có thêm chi phí xử lý heap.
+
+            Solution là chuỗi bước hợp lệ tối ưu, được lưu dưới dạng các cặp (from_idx, to_idx).
+
+![](gifs/UCS.gif)
+
+        2.1.4 Iterative Deepening Depth-First Search (IDDFS)
+
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1].
+            
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+
+            Chi phí: Mỗi bước có chi phí bằng 1.
+
+            Solution: IDDFS là sự kết hợp giữa DFS và BFS.
+
+            Thuật toán thực hiện DFS nhiều lần với các giới hạn độ sâu tăng dần cho đến khi tìm được lời giải.
+
+            Ưu điểm của IDDFS là tiết kiệm bộ nhớ như DFS, nhưng vẫn có thể tìm được lời giải tối ưu nếu chi phí mỗi bước là như nhau.
+
+            Solution là chuỗi bước đầu tiên tìm được tại độ sâu tối thiểu và được lưu dưới dạng danh sách (from_idx, to_idx).
+
+![](gifs/IDDFS.gif)
