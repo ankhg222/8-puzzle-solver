@@ -90,6 +90,8 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
 
             Trong nhóm các thuật toán không có thông tin, BFS là lựa chọn tốt nhất khi cần một giải pháp đơn giản, đảm bảo tìm lời giải ngắn nhất và dễ kiểm soát. Với bài toán 8 ô chữ có không gian trạng thái vừa phải – BFS hoạt động hiệu quả và là tiêu chuẩn so sánh cho các phương pháp khác.
 
+
+
     2.2. Các thuật toán Tìm kiếm có thông tin
 
         2.2.1 Greedy Best-First Search
@@ -104,6 +106,8 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
             Solution là chuỗi bước đi được chọn theo hướng gần goal nhất.
 
 ![](gifs/Greedy.gif)
+
+
         2.2.2 A* Search
             Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
             Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
@@ -116,6 +120,8 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
             Solution được tối ưu cả về độ dài và số node mở rộng.
 
 ![](gifs/A_Search.gif)
+
+
         2.2.3 IDA* (Iterative Deepening A*)
             Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3.
             Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
