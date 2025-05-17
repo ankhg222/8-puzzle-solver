@@ -495,7 +495,7 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
                 Solution là chính sách dẫn đến chuỗi hành động tối ưu sau quá trình học.
 
 
-![](gifs/REINFORCE.gif)
+![](gifs/Reinforce.gif)
 
 
             2.6.4 Nhận xét về hiệu suất của các thuật toán tiến hóa và học tăng cường
