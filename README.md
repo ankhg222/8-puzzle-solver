@@ -161,3 +161,121 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
                 A* là lựa chọn tốt nhất nếu muốn tìm lời giải ngắn nhất, đảm bảo tối ưu, và chấp nhận mở rộng nhiều node hơn.
                 Greedy nhanh, phù hợp để chạy thời gian thực hoặc trong các trạng thái đơn giản, nhưng không đảm bảo tối ưu.
                 IDA* là phương án thay thế tốt cho A* khi muốn tiết kiệm bộ nhớ, dù đánh đổi bằng thời gian.
+
+
+
+    2.3. Các thuật toán Tìm kiếm cục bộ (Local Search)
+
+
+        2.3.1 Simple Hill Climbing
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+            Chi phí: Không xét tổng chi phí, chỉ xét heuristic.
+
+            Solution: Ở mỗi bước, thuật toán chọn trạng thái hàng xóm có giá trị heuristic thấp hơn.
+            Nếu không có hàng xóm nào tốt hơn → dừng lại. Dễ bị rơi vào cực trị cục bộ.
+            Solution là chuỗi các bước cải thiện liên tục đến khi không thể tốt hơn.
+
+
+![](gifs/Simple_Hill.gif)
+
+
+        2.3.2 Steepest Ascent Hill Climbing
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+            Chi phí: Không xét tổng chi phí, chỉ xét heuristic.
+
+            Solution: Ở mỗi bước, thuật toán duyệt tất cả trạng thái hàng xóm và chọn trạng thái có giá trị heuristic nhỏ nhất.
+            Việc chọn tốt nhất giúp giảm khả năng kẹt ở cực trị gần, nhưng vẫn có thể mắc kẹt ở cực trị toàn cục.
+            Solution là chuỗi các bước tối ưu cục bộ cho đến khi không còn hàng xóm nào tốt hơn.
+
+
+![](gifs/Steepest_Hill.gif)
+
+
+        2.3.3 Random Restart Hill Climbing
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+            Chi phí: Không xét tổng chi phí, chỉ xét heuristic.
+
+            Solution: Thuật toán thực hiện nhiều lần Hill Climbing từ các trạng thái khởi tạo ngẫu nhiên.
+            Nếu bị mắc kẹt cục bộ, nó khởi động lại từ trạng thái mới → tăng khả năng tìm được lời giải tốt hơn.
+            Solution là lời giải ngắn nhất trong số các lần chạy, nếu tồn tại.
+
+![](gifs/Rand_Hill.gif)
+
+
+        2.3.4 Simulated Annealing
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+            Chi phí: Không xét tổng chi phí, chỉ xét heuristic và xác suất lựa chọn.
+
+            Solution: Ở mỗi bước, thuật toán có thể chọn cả trạng thái tệ hơn với một xác suất phụ thuộc vào nhiệt độ hiện tại.
+            Nhiệt độ giảm dần theo thời gian, giúp kiểm soát độ "mạo hiểm" và tránh rơi vào cực trị.
+            Solution là chuỗi bước tìm kiếm với khả năng thoát khỏi điểm kẹt cục bộ.
+
+
+![](gifs/Simulated.gif)
+
+
+        2.3.5 Beam Search
+            Trạng thái: Mảng 1 chiều gồm 9 ô, đại diện cho bảng 3x3 (0 là ô trống).
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 lên, xuống, trái, phải nếu hợp lệ.
+            Chi phí: Không xét tổng chi phí, chỉ xét heuristic.
+
+            Solution: Tại mỗi bước, thuật toán chỉ giữ lại k trạng thái có heuristic tốt nhất để tiếp tục mở rộng.
+            Việc giới hạn số lượng trạng thái giúp giảm chi phí tính toán, nhưng dễ bỏ qua lời giải nếu loại sai.
+            Solution là chuỗi bước đi từ trạng thái tốt nhất còn lại trong mỗi vòng mở rộng.
+
+![](gifs/Beam.gif)
+
+
+        2.3.6 Nhận xét về hiệu suất của các thuật toán Local Search
+        
+         Simple Hill Climbing
+
+                Thuật toán đơn giản, mỗi bước chỉ chọn trạng thái hàng xóm tốt hơn.
+                Tuy nhiên, rất dễ bị kẹt ở cực trị cục bộ nếu xung quanh không có trạng thái nào tốt hơn.
+                Trong 8-Puzzle, có thể đứng im giữa chừng nếu chọn nhánh không hợp lý.
+
+
+         Steepest Ascent Hill Climbing
+
+                Cải tiến hơn Simple Hill Climbing ở chỗ xét tất cả hàng xóm và chọn trạng thái tốt nhất trong số đó.
+                Dễ tránh được một số điểm kẹt nhỏ, nhưng vẫn khó thoát khỏi cực trị toàn cục.
+                Trong các trạng thái khó, vẫn có thể dừng lại mà không đạt đích.
+
+        Random Restart Hill Climbing
+
+                Giảm rủi ro kẹt cực trị bằng cách chạy nhiều lần Hill Climbing từ các trạng thái khởi đầu khác nhau.
+                Nếu một lần bị kẹt → khởi động lại → tăng xác suất tìm được lời giải tốt hơn.
+                Kết quả phụ thuộc vào số lần restart và chất lượng khởi tạo ban đầu.
+                Trong 8-Puzzle, hiệu quả hơn nhiều so với Simple/Steepest nếu cho phép chạy lặp lại.
+
+        Simulated Annealing
+
+                Có khả năng vượt qua cực trị bằng cách chấp nhận trạng thái tệ hơn với một xác suất nhất định.
+                Xác suất này giảm dần theo thời gian (giống như quá trình tôi luyện kim loại – annealing).
+                Trong bài toán 8 ô chữ, đây là thuật toán ổn định và hiệu quả nhất trong nhóm Local Search, nếu điều chỉnh thông số nhiệt độ hợp lý.
+
+        Beam Search
+
+                Tối ưu bộ nhớ bằng cách chỉ giữ lại k trạng thái tốt nhất ở mỗi bước (beam width).
+                Nếu k quá nhỏ, thuật toán có thể bỏ sót lời giải.
+                Nếu k đủ lớn, có thể tìm được kết quả tốt nhanh hơn A*, nhưng không đảm bảo tối ưu.
+
+            
+        Simulated Annealing là thuật toán tốt nhất trong nhóm Local Search vì có khả năng thoát khỏi điểm kẹt và khám phá không gian trạng thái tốt hơn.
+        Random Restart cũng hiệu quả nếu có đủ số lần thử lại và trạng thái khởi tạo phân tán.
+        Simple và Steepest thích hợp cho bài toán đơn giản, nhưng kém hiệu quả ở các trạng thái phức tạp.
+        Beam Search hiệu quả với cấu hình phù hợp, nhưng yêu cầu phải chọn k hợp lý để cân bằng giữa tốc độ và độ chính xác.
