@@ -102,19 +102,17 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
 ![](gifs/IDDFS.gif)
 
 
-    Nhận xét về hiệu suất của các thuật toán Tìm kiếm không có thông tin
+        2.1.5. Nhận xét về hiệu suất của các thuật toán Tìm kiếm không có thông tin
 
-    Khi áp dụng vào trò chơi 8 ô chữ (8-Puzzle), mỗi thuật toán trong nhóm Uninformed Search có những ưu nhược điểm riêng:
+            Khi áp dụng vào trò chơi 8 ô chữ (8-Puzzle), mỗi thuật toán trong nhóm Uninformed Search có những ưu nhược điểm riêng:
 
-        BFS là thuật toán ổn định và đáng tin cậy nhất trong nhóm này. Nó luôn tìm ra đường đi ngắn nhất nếu tồn tại, nhưng phải đánh đổi bằng việc mở rộng rất nhiều trạng thái trong bộ nhớ.
+                BFS là thuật toán ổn định và đáng tin cậy nhất trong nhóm này. Nó luôn tìm ra đường đi ngắn nhất nếu tồn tại, nhưng phải đánh đổi bằng việc mở rộng rất nhiều trạng thái trong bộ nhớ.
 
-        DFS có lợi thế về tốc độ và sử dụng ít bộ nhớ hơn, tuy nhiên dễ rơi vào nhánh sai, không đảm bảo tìm được lời giải tối ưu, đặc biệt với trạng thái ban đầu phức tạp.
+                DFS có lợi thế về tốc độ và sử dụng ít bộ nhớ hơn, tuy nhiên dễ rơi vào nhánh sai, không đảm bảo tìm được lời giải tối ưu, đặc biệt với trạng thái ban đầu phức tạp.
 
-        UCS đảm bảo tìm lời giải tối ưu tương tự như BFS trong trường hợp mọi bước đi có cùng chi phí, nhưng vận hành nặng hơn do phải xử lý hàng đợi ưu tiên.
+                UCS đảm bảo tìm lời giải tối ưu tương tự như BFS trong trường hợp mọi bước đi có cùng chi phí, nhưng vận hành nặng hơn do phải xử lý hàng đợi ưu tiên.
 
-        IDDFS kết hợp ưu điểm của DFS và BFS, vừa tiết kiệm bộ nhớ vừa đảm bảo tìm được lời giải tối ưu. Tuy nhiên, nó phải lặp lại quá trình tìm kiếm nhiều lần ở các độ sâu khác nhau, dẫn đến thời gian thực thi lớn hơn đáng kể.
+                IDDFS kết hợp ưu điểm của DFS và BFS, vừa tiết kiệm bộ nhớ vừa đảm bảo tìm được lời giải tối ưu. Tuy nhiên, nó phải lặp lại quá trình tìm kiếm nhiều lần ở các độ sâu khác nhau, dẫn đến thời gian thực thi lớn hơn đáng kể.
 
-    Kết luận:
-    
-    Trong nhóm các thuật toán không có thông tin, BFS là lựa chọn tốt nhất khi cần một giải pháp đơn giản, đảm bảo tìm lời giải ngắn nhất và dễ kiểm soát. Với bài toán 8 ô chữ có không gian trạng thái vừa phải – BFS hoạt động hiệu quả và là tiêu chuẩn so sánh cho các phương pháp khác.
+            Trong nhóm các thuật toán không có thông tin, BFS là lựa chọn tốt nhất khi cần một giải pháp đơn giản, đảm bảo tìm lời giải ngắn nhất và dễ kiểm soát. Với bài toán 8 ô chữ có không gian trạng thái vừa phải – BFS hoạt động hiệu quả và là tiêu chuẩn so sánh cho các phương pháp khác.
 
