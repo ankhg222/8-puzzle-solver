@@ -279,3 +279,110 @@ Thông qua dự án, người thực hiện hướng đến các mục tiêu c�
             Random Restart cũng hiệu quả nếu có đủ số lần thử lại và trạng thái khởi tạo phân tán.
             Simple và Steepest thích hợp cho bài toán đơn giản, nhưng kém hiệu quả ở các trạng thái phức tạp.
             Beam Search hiệu quả với cấu hình phù hợp, nhưng yêu cầu phải chọn k hợp lý để cân bằng giữa tốc độ và độ chính xác.
+
+
+    2.4. Thuật toán trong môi trường không xác định (Partial / Sensorless Search)
+
+
+        2.4.1 AND-OR Graph Search
+
+            Trạng thái: Không xác định hoàn toàn; agent chỉ biết trạng thái hiện tại và các hành động khả dĩ.
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1]
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Di chuyển 0 theo 4 hướng nếu hợp lệ.
+            Chi phí: Không xét trực tiếp, ưu tiên theo cây kế hoạch.
+
+            Solution:
+            AND-OR Search xây dựng một cây kế hoạch với các nút OR (chọn hành động) và nút AND (mọi kết quả của hành động phải đúng).
+            Thuật toán xử lý môi trường không chắc chắn bằng cách lập kế hoạch sao cho mọi nhánh đều đảm bảo đi tới đích.
+            Solution là cây con trong cây kế hoạch mà tất cả nhánh AND đều thỏa mãn.
+
+
+![](gifs/AND_OR.gif)
+
+
+        2.4.2 Searching with No Observation
+
+            Trạng thái: Agent không biết trạng thái hiện tại cụ thể, chỉ thực hiện hành động theo logic.
+            Trạng thái ban đầu: [2, 6, 5, 0, 8, 7, 4, 3, 1] (nhưng không quan sát được)
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Chọn hành động mà không biết chắc mình đang ở đâu.
+            Chi phí: Mỗi bước được tính như bình thường.
+
+            Solution:
+            Thuật toán chỉ dựa vào logic hành động, không có đầu vào từ cảm biến.
+            Agent thực hiện chuỗi hành động mặc định (ví dụ: always left → down → right) cho đến khi đạt đích hoặc loại trừ hết khả năng.
+            Solution là danh sách hành động thực hiện được mà không cần quan sát trạng thái.
+
+
+![](gifs/No_Observation.gif)
+
+
+        2.4.3 Belief A* Search
+
+
+            Trạng thái: Một tập hợp các trạng thái có thể xảy ra gọi là belief state.
+            Trạng thái ban đầu: nhập trạng thái ban đầu.
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Mỗi hành động có thể ảnh hưởng đến toàn bộ belief set.
+            Chi phí: Ước lượng theo khoảng cách trung bình hoặc cực đại của các trạng thái trong belief.
+
+            Solution:
+            Belief A* thực hiện A* trên toàn bộ tập trạng thái có thể, cập nhật dần belief sau mỗi hành động.
+            Khi tập belief thu hẹp lại thành trạng thái duy nhất là goal, thuật toán kết thúc.
+            Solution là chuỗi hành động dẫn belief từ tập hợp mơ hồ → tập xác định → goal.
+
+
+![](gifs/Belief_A.gif)
+
+
+        2.4.4 Sensorless Search (Tìm kiếm với trạng thái niềm tin)
+
+            Trạng thái: Không xác định chính xác vị trí hiện tại, agent có tập hợp trạng thái ban đầu (belief set).
+            Trạng thái ban đầu: nhập trạng thái ban đầu.
+            Trạng thái đích: [1, 2, 3, 4, 5, 6, 7, 8, 0]
+            Phép toán: Áp dụng cho tất cả trạng thái trong belief set cùng lúc.
+            Chi phí: Không đổi cho mỗi bước.
+
+            Solution:
+            Agent thực hiện cùng một hành động trên tất cả trạng thái trong belief set.
+            Sau mỗi bước, belief set được cập nhật lại.
+            Khi tất cả các trạng thái trong belief đều là goal → kết thúc.
+            Solution là chuỗi hành động giúp thu hẹp không chắc chắn đến trạng thái duy nhất là đích.
+
+
+![](gifs/Sensorless.gif)
+
+
+        2.4.5. Nhận xét về hiệu suất của các thuật toán trong môi trường không xác định
+
+        AND-OR Graph Search
+
+            Đây là thuật toán có khả năng xử lý tốt các trường hợp có nhiều khả năng xảy ra, nhờ việc xây dựng một cây kế hoạch logic.
+            Tuy nhiên, thuật toán này thường tốn rất nhiều tài nguyên tính toán vì phải kiểm tra tất cả các nhánh AND (mọi khả năng đều đúng).
+            Trong 8-Puzzle, nếu có quá nhiều trạng thái không chắc chắn, cây kế hoạch sẽ phình to rất nhanh, gây khó khăn cho việc triển khai hiệu quả.
+
+        Searching with No Observation
+
+            Là thuật toán đơn giản nhất trong nhóm. Agent chỉ thực hiện chuỗi hành động cố định mà không cần biết mình đang ở đâu.
+            Tuy đơn giản, nhưng hiệu quả kém vì dễ thực hiện những bước vô nghĩa hoặc lặp lại do không có cơ chế phản hồi.
+            Phù hợp để minh họa khái niệm "mù hoàn toàn", nhưng không thực tế với những trò chơi cần tối ưu hóa.
+
+        Belief A* Search
+
+            Belief A* là phiên bản tổng quát của A* trong môi trường không xác định.
+            Thay vì tìm đường đi cho một trạng thái, thuật toán xử lý tập hợp các trạng thái (belief state) và tìm cách thu hẹp chúng dần về goal.
+            Nhờ kết hợp tốt giữa heuristic và logic niềm tin, thuật toán này hoạt động hiệu quả nhất trong nhóm, đặc biệt trong bài toán như 8-Puzzle khi không xác định trạng thái ban đầu.
+            Tuy nhiên, chi phí xử lý vẫn cao hơn A* bình thường vì phải cập nhật và mở rộng nhiều belief cùng lúc.
+
+        Sensorless Search
+
+            Thuật toán mô phỏng trường hợp không thể quan sát – agent chỉ biết mình đang nằm trong một tập hợp trạng thái và hành động phải áp dụng cho tất cả trạng thái cùng lúc.
+            Sau mỗi hành động, belief được cập nhật. Khi toàn bộ belief hội tụ về goal → kết thúc.
+            Cách tiếp cận này an toàn và chắc chắn, nhưng tốc độ hội tụ chậm, vì không có phản hồi để dẫn dắt hành động tốt hơn.
+
+
+        Trong các thuật toán xử lý môi trường không xác định, Belief A* là lựa chọn tốt nhất vì vẫn tận dụng được heuristic như A*, đồng thời hỗ trợ xử lý tập trạng thái.
+        Sensorless Search có tính đảm bảo cao nhưng hiệu suất thấp do mất nhiều bước để thu hẹp belief.
+        AND-OR Search phù hợp cho bài toán logic/phức tạp, nhưng quá nặng cho 8-Puzzle vì không gian trạng thái quá lớn.
+        Searching with No Observation chỉ mang tính minh họa lý thuyết, hiệu quả thực tế rất thấp.
